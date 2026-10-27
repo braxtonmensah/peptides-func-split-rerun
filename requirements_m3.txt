@@ -1,0 +1,11 @@
+# Arm M3 (PREREG_M3.md). CPU-only torch wheel from download.pytorch.org/whl/cpu.
+torch==2.5.1+cpu
+torch_geometric==2.6.1
+ogb==1.3.6
+rdkit==2025.3.6
+numpy==2.4.1
+scipy==1.17.0
+scikit-learn==1.8.0
+pandas==2.3.3
+rapidfuzz==3.13.0
+jsonschema==4.23.0

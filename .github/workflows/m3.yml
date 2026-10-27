@@ -1,0 +1,153 @@
+name: m3
+
+# Arm M3 (PREREG_M3.md): the tuned GCN of Toenshoff et al. on the shipped split and the same
+# corrected splits as M1/M2. Fork, open Actions, choose "m3", Run workflow. mode=probe is the
+# timing-only probe that fixed the epoch budget; mode=full produces the M3 numbers.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "probe (timing only, no metric) or full"
+        required: true
+        default: full
+        type: choice
+        options: [full, probe]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: m3-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PYTHONHASHSEED: "0"
+  PYTHONUNBUFFERED: "1"
+  CUBLAS_WORKSPACE_CONFIG: ":4096:8"
+
+jobs:
+  probe:
+    if: inputs.mode == 'probe'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: astral-sh/setup-uv@v6
+      - run: uv pip install --system -r requirements_m3.txt --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match
+      - run: python src/run_m3.py --mode probe
+      - uses: actions/upload-artifact@v4
+        with: { name: m3-probe, path: out/M3_probe.json }
+
+  prereg-check:
+    if: inputs.mode == 'full'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: python src/prereg_check.py
+      - run: python src/m3_prereg_check.py
+      - uses: actions/upload-artifact@v4
+        with: { name: m3-prereg, path: out/*.json }
+
+  prepare:
+    needs: prereg-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: astral-sh/setup-uv@v6
+      - run: uv pip install --system -r requirements.txt --override overrides.txt
+      - name: data integrity, leakage control, five corrected resamples (same code as rerun.yml)
+        run: python src/prepare.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: m3-prepared
+          path: |
+            work/splits.json
+            out/controls_data.json
+          if-no-files-found: warn
+
+  arms:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { split: shipped, seed: 0, mode: normal }
+          - { split: shipped, seed: 1, mode: normal }
+          - { split: shipped, seed: 2, mode: normal }
+          - { split: r0, seed: 0, mode: normal }
+          - { split: r1, seed: 0, mode: normal }
+          - { split: r2, seed: 0, mode: normal }
+          - { split: r3, seed: 0, mode: normal }
+          - { split: r4, seed: 0, mode: normal }
+          - { split: corrected_file, seed: 0, mode: normal }
+          - { split: shipped, seed: 0, mode: shuffle }
+          - { split: r0, seed: 0, mode: determinism }
+    name: M3 ${{ matrix.split }} s${{ matrix.seed }} ${{ matrix.mode }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: astral-sh/setup-uv@v6
+      - run: uv pip install --system -r requirements_m3.txt --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match
+      - uses: actions/download-artifact@v4
+        with: { name: m3-prepared, path: . }
+      - run: python src/run_m3.py --split ${{ matrix.split }} --seed ${{ matrix.seed }} --mode ${{ matrix.mode }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m3-arm-${{ matrix.split }}-s${{ matrix.seed }}-${{ matrix.mode }}
+          path: out/M3_${{ matrix.split }}_s${{ matrix.seed }}_${{ matrix.mode }}.json
+
+  aggregate:
+    needs: arms
+    if: always() && needs.arms.result != 'cancelled' && inputs.mode == 'full'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy==2.4.1
+      - uses: actions/download-artifact@v4
+        with: { name: m3-prepared, path: . }
+      - uses: actions/download-artifact@v4
+        with: { name: m3-prereg, path: out }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "m3-arm-*", path: out, merge-multiple: true }
+      - name: contrasts, controls, verdicts for M3
+        run: python src/aggregate_m3.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: m3-results, path: results/m3/ }
+
+  publish:
+    needs: aggregate
+    if: github.repository == 'braxtonmensah/peptides-func-split-rerun' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: results, fetch-depth: 0 }
+      - uses: actions/download-artifact@v4
+        with: { name: m3-results, path: results/m3 }
+      - name: add results/m3 to the results branch (M1/M2 files untouched)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f results/m3
+          git commit -m "results/m3: run ${{ github.run_id }} on ${{ github.sha }}"
+          git push origin results
