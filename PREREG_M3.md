@@ -70,8 +70,23 @@ runner is unknown when this is written. Rule, fixed now:
    block; it refuses to train if E is not set.
 
 ```m3budget
-{"max_epoch": null, "probe_run": null}
+{"max_epoch": 170, "probe_run": "https://github.com/braxtonmensah/peptides-func-split-rerun/actions/runs/40569684000"}
 ```
+
+**Budget addendum, written 2026-10-27 16:06 ET, after the probe and before any M3 metric on real
+labels.** Probe run 40569684000 (commit 68c69d7, 4 vCPU): setup 135.2 s, 81.95 s per training
+epoch, 13.25 s per evaluation pass (means over 3 epochs). Projected job time with the 1.15 margin:
+250 epochs 458.4 min (does not fit), 180 epochs 330.7 min (does not fit), 170 epochs 312.4 min
+(fits). So **E = 170**: the cosine schedule runs over 170 epochs, warmup stays 5. This is a reduced
+budget, 68% of the published 250 epochs, and a deviation from the published config; every M3
+number is labelled E = 170.
+
+Disclosure: besides timing, the probe ran a smoke test of the scoring code path on 500 rows with
+**random** labels (2 epochs, `smoke()` in `src/run_m3.py`), so that a code bug could not surface
+after hours of training. Those scores were neither printed nor saved and carry no information about
+any split. Strictly, that is a metric computation, which the probe paragraph above said the probe
+would not do; it is stated here rather than hidden. No macro AP on real labels existed when E was
+fixed.
 
 ## Jobs, fixed now
 
