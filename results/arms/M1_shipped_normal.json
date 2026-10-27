@@ -1,0 +1,123 @@
+{
+ "model": "M1",
+ "split": "shipped",
+ "mode": "normal",
+ "fit_rows": 13204,
+ "test_rows": 2331,
+ "n_features": 2048,
+ "versions": {
+  "scikit-fingerprints": "1.18.0",
+  "lightgbm": "4.6.0",
+  "scikit-learn": "1.8.0",
+  "rdkit": "2025.3.6",
+  "numpy": "2.4.1",
+  "rapidfuzz": "3.13.0"
+ },
+ "ap_per_label": {
+  "0": 0.504487,
+  "1": 0.814219,
+  "2": 0.684391,
+  "3": 0.673746,
+  "4": 0.976182,
+  "5": 0.845232,
+  "6": 0.921909,
+  "7": 0.644243,
+  "8": 0.50345,
+  "9": 0.892573
+ },
+ "macro_ap": 0.746043,
+ "test_positive_rate": [
+  0.087945,
+  0.034749,
+  0.063063,
+  0.062634,
+  0.62677,
+  0.200772,
+  0.10725,
+  0.184899,
+  0.016731,
+  0.26169
+ ],
+ "contrast_c": {
+  "twin_reference": "train+val",
+  "n_twinned": 1601,
+  "n_untwinned": 730,
+  "labels_used": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9
+  ],
+  "labels_dropped": [],
+  "ap_twinned_all_rows": 0.797243,
+  "ap_untwinned_all_rows": 0.584699,
+  "positive_rate_twinned": [
+   0.0956,
+   0.0381,
+   0.07,
+   0.0306,
+   0.6646,
+   0.1855,
+   0.1174,
+   0.2011,
+   0.0194,
+   0.2804
+  ],
+  "positive_rate_untwinned": [
+   0.0712,
+   0.0274,
+   0.0479,
+   0.1329,
+   0.5438,
+   0.2342,
+   0.0849,
+   0.1493,
+   0.011,
+   0.2205
+  ],
+  "per_resample": [
+   {
+    "seed": 0,
+    "n_twinned_subset": 730,
+    "ap_twinned": 0.781861,
+    "ap_untwinned": 0.584699,
+    "diff": 0.197162
+   },
+   {
+    "seed": 1,
+    "n_twinned_subset": 730,
+    "ap_twinned": 0.754457,
+    "ap_untwinned": 0.584699,
+    "diff": 0.169758
+   },
+   {
+    "seed": 2,
+    "n_twinned_subset": 730,
+    "ap_twinned": 0.812322,
+    "ap_untwinned": 0.584699,
+    "diff": 0.227623
+   },
+   {
+    "seed": 3,
+    "n_twinned_subset": 730,
+    "ap_twinned": 0.813391,
+    "ap_untwinned": 0.584699,
+    "diff": 0.228692
+   },
+   {
+    "seed": 4,
+    "n_twinned_subset": 730,
+    "ap_twinned": 0.821205,
+    "ap_untwinned": 0.584699,
+    "diff": 0.236506
+   }
+  ]
+ },
+ "seconds": 25.7
+}

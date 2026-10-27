@@ -1,0 +1,45 @@
+{
+ "gate_prereg": {
+  "h1_min_diff": 0.03,
+  "h1_min_same_sign": 4,
+  "n_resamples": 5,
+  "h0_below": 0.01
+ },
+ "gate_vendored_docstring": {
+  "h1_min_diff": 0.03,
+  "h1_min_same_sign": 4,
+  "n_resamples": 5,
+  "h0_below": 0.01
+ },
+ "vendored": [
+  {
+   "name": "inflation_lrgb.py",
+   "pinned": "95a35a2e93d799d86c03be73f859ff369627fef6aa8812f2f30da911cc4fbfe5",
+   "local": "95a35a2e93d799d86c03be73f859ff369627fef6aa8812f2f30da911cc4fbfe5",
+   "upstream": "95a35a2e93d799d86c03be73f859ff369627fef6aa8812f2f30da911cc4fbfe5"
+  },
+  {
+   "name": "build_lrgb_split.py",
+   "pinned": "078d426d13ab3d5f6d6f134ea685e1c199627756e8441c26b4bd9428e5a6028e",
+   "local": "078d426d13ab3d5f6d6f134ea685e1c199627756e8441c26b4bd9428e5a6028e",
+   "upstream": "078d426d13ab3d5f6d6f134ea685e1c199627756e8441c26b4bd9428e5a6028e"
+  },
+  {
+   "name": "inflation_pepbench.py",
+   "pinned": "34217a8cfa92dba398580e258ff8921f58fc36351aa4be89d34bd4b72cdfe073",
+   "local": "34217a8cfa92dba398580e258ff8921f58fc36351aa4be89d34bd4b72cdfe073",
+   "upstream": "34217a8cfa92dba398580e258ff8921f58fc36351aa4be89d34bd4b72cdfe073"
+  },
+  {
+   "name": "leakage-measurements.json",
+   "pinned": "3541b58ebe534298f8f78514b5cd7917cdbe8e8ee9f76fe1ebe16ca4dc896e5f",
+   "local": "3541b58ebe534298f8f78514b5cd7917cdbe8e8ee9f76fe1ebe16ca4dc896e5f",
+   "upstream": "3541b58ebe534298f8f78514b5cd7917cdbe8e8ee9f76fe1ebe16ca4dc896e5f"
+  }
+ ],
+ "prereg_commit": "e44f71ada6a45dbe8e757f52e62861e1967cdbb2",
+ "prereg_commit_unix": 1793126661,
+ "results_commits": 2,
+ "fails": [],
+ "pass": true
+}

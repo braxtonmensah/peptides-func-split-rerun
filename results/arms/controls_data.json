@@ -1,0 +1,113 @@
+{
+ "md5": {
+  "data": "701eb743e899f4d793f0e13c8fa5a1b4",
+  "split": "5a0114bdadc80b94fc7ae974f13ef061"
+ },
+ "rows": 15535,
+ "labels": 10,
+ "skfp_crosscheck": {
+  "same_smiles_same_order": true,
+  "same_labels": true,
+  "same_split_indices": true,
+  "hf_rows": 15535
+ },
+ "shipped_sizes": {
+  "train": 10873,
+  "val": 2331,
+  "test": 2331
+ },
+ "corrected_file_md5": "b5751ec51e80fa7fb5aba12016de81fb",
+ "corrected_file_sizes": {
+  "train": 10873,
+  "val": 2331,
+  "test": 2331
+ },
+ "n_clusters": 6339,
+ "twin": {
+  "shipped": {
+   "sizes": {
+    "train": 10873,
+    "val": 2331,
+    "test": 2331
+   },
+   "twin_at_080_pct": 65.29,
+   "twinned_test_rows": 1522,
+   "twin_at_080_pct_vs_train_plus_val": 68.68,
+   "twinned_test_rows_vs_train_plus_val": 1601
+  },
+  "corrected_file": {
+   "sizes": {
+    "train": 10873,
+    "val": 2331,
+    "test": 2331
+   },
+   "twin_at_080_pct": 0.0,
+   "twinned_test_rows": 0,
+   "twin_at_080_pct_vs_train_plus_val": 0.0,
+   "twinned_test_rows_vs_train_plus_val": 0
+  },
+  "r0": {
+   "sizes": {
+    "train": 10873,
+    "val": 2331,
+    "test": 2331
+   },
+   "twin_at_080_pct": 0.0,
+   "twinned_test_rows": 0,
+   "twin_at_080_pct_vs_train_plus_val": 0.0,
+   "twinned_test_rows_vs_train_plus_val": 0
+  },
+  "r1": {
+   "sizes": {
+    "train": 10873,
+    "val": 2331,
+    "test": 2331
+   },
+   "twin_at_080_pct": 0.0,
+   "twinned_test_rows": 0,
+   "twin_at_080_pct_vs_train_plus_val": 0.0,
+   "twinned_test_rows_vs_train_plus_val": 0
+  },
+  "r2": {
+   "sizes": {
+    "train": 10873,
+    "val": 2331,
+    "test": 2331
+   },
+   "twin_at_080_pct": 0.0,
+   "twinned_test_rows": 0,
+   "twin_at_080_pct_vs_train_plus_val": 0.0,
+   "twinned_test_rows_vs_train_plus_val": 0
+  },
+  "r3": {
+   "sizes": {
+    "train": 10873,
+    "val": 2331,
+    "test": 2331
+   },
+   "twin_at_080_pct": 0.0,
+   "twinned_test_rows": 0,
+   "twin_at_080_pct_vs_train_plus_val": 0.0,
+   "twinned_test_rows_vs_train_plus_val": 0
+  },
+  "r4": {
+   "sizes": {
+    "train": 10873,
+    "val": 2331,
+    "test": 2331
+   },
+   "twin_at_080_pct": 0.0,
+   "twinned_test_rows": 0,
+   "twin_at_080_pct_vs_train_plus_val": 0.0,
+   "twinned_test_rows_vs_train_plus_val": 0
+  }
+ },
+ "record": {
+  "twin_at_080_pct": 65.29,
+  "test_rows": 2331,
+  "train_rows": 10873
+ },
+ "fails": [],
+ "pass": true,
+ "seconds": 13.3
+}

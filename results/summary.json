@@ -112,8 +112,8 @@
      "resample": "r0",
      "seed": 0,
      "ap_shipped": 0.35417,
-     "ap_corrected": 0.320363,
-     "diff": 0.033807
+     "ap_corrected": 0.320377,
+     "diff": 0.033793
     },
     {
      "resample": "r1",
@@ -144,11 +144,11 @@
      "diff": 0.039585
     }
    ],
-   "mean": 0.322924,
-   "sd": 0.005383,
-   "diff": 0.031246,
-   "sd_diff": 0.005383,
-   "t": 12.978,
+   "mean": 0.322927,
+   "sd": 0.005382,
+   "diff": 0.031243,
+   "sd_diff": 0.005382,
+   "t": 12.981,
    "df": 4,
    "same_sign": 5,
    "verdict": "H1",
@@ -262,7 +262,7 @@
     9
    ],
    "labels_dropped": [],
-   "ap_twinned_all_rows": 0.373885,
+   "ap_twinned_all_rows": 0.373886,
    "ap_untwinned_all_rows": 0.314658,
    "positive_rate_twinned": [
     0.0959,
@@ -294,9 +294,9 @@
     {
      "seed": 0,
      "n_twinned_subset": 809,
-     "ap_twinned": 0.369178,
+     "ap_twinned": 0.369179,
      "ap_untwinned": 0.314658,
-     "diff": 0.05452
+     "diff": 0.054521
     },
     {
      "seed": 1,
@@ -315,9 +315,9 @@
     {
      "seed": 3,
      "n_twinned_subset": 809,
-     "ap_twinned": 0.375369,
+     "ap_twinned": 0.37537,
      "ap_untwinned": 0.314658,
-     "diff": 0.060711
+     "diff": 0.060712
     },
     {
      "seed": 4,
@@ -331,7 +331,7 @@
    "sd": 0.008782,
    "diff": 0.06286,
    "sd_diff": 0.008782,
-   "t": 16.005,
+   "t": 16.006,
    "df": 4,
    "same_sign": 5,
    "verdict": "H1"
@@ -498,8 +498,8 @@
     "identical_to_6dp": true
    },
    "M2": {
-    "macro_ap": 0.320363,
-    "macro_ap_second_run": 0.320363,
+    "macro_ap": 0.320377,
+    "macro_ap_second_run": 0.320377,
     "identical_to_6dp": true
    }
   },
@@ -514,10 +514,10 @@
  "provenance": {
   "prereg_commit": "e44f71ada6a45dbe8e757f52e62861e1967cdbb2",
   "prereg_commit_unix": 1793126661,
-  "run_commit": "42855ad3704717bb273278745363685b5993302a",
-  "run_id": "40564969278",
+  "run_commit": "b206bdfd780db55b64a7a6330c2514cddf328578",
+  "run_id": "40567232479",
   "repository": "braxtonmensah/peptides-func-split-rerun",
-  "aggregated_utc": "2026-10-27T19:01:37Z"
+  "aggregated_utc": "2026-10-27T19:16:12Z"
  },
  "controls_failed": [],
  "schema_valid": true
