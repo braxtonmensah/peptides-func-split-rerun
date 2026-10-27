@@ -41,7 +41,7 @@ The latest verdict is on the badge above and in
 on the `results` branch (job summary table in each run). Tagged releases attach the JSON.
 
 <!-- RESULT-START -->
-First full run: [Actions run 40564969278](https://github.com/braxtonmensah/peptides-func-split-rerun/actions/runs/40564969278), 2026-10-27, all controls passed. Verdicts are computed by `src/aggregate.py` from the thresholds in PREREG.md.
+First full run: [Actions run 40564969278](https://github.com/braxtonmensah/peptides-func-split-rerun/actions/runs/40564969278), 2026-10-27, all controls passed. A second run on a later commit ([40565551293](https://github.com/braxtonmensah/peptides-func-split-rerun/actions/runs/40565551293), the one on the `results` branch) gave the same numbers. Verdicts are computed by `src/aggregate.py` from the thresholds in PREREG.md.
 
 | model | contrast | score, contaminated side | score, clean side | difference (mean of 5) | sd | t (df 4) | same sign | verdict |
 |---|---|---:|---:|---:|---:|---:|---:|---|
