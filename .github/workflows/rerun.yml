@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths-ignore: ["README.md", "signals/**"]
+    paths-ignore: ["README.md", "signals/**", "PREREG_M3.md", "requirements_m3.txt", "src/m3_*.py", "src/run_m3.py", "src/aggregate_m3.py", ".github/workflows/m3.yml"]
 
 permissions:
   contents: read
@@ -120,7 +120,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           cp results/badge.json badge.json
+          git fetch origin results || true
           git checkout -B results
+          # keep arm M3 (written by m3.yml) when M1/M2 are republished
+          git checkout origin/results -- results/m3 2>/dev/null || true
           git add -f results badge.json
           git commit -m "results: run ${{ github.run_id }} on ${{ github.sha }}"
           git push -f origin results
