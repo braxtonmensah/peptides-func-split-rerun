@@ -40,6 +40,23 @@ The latest verdict is on the badge above and in
 [`results/summary.json`](https://github.com/braxtonmensah/peptides-func-split-rerun/blob/results/results/summary.json)
 on the `results` branch (job summary table in each run). Tagged releases attach the JSON.
 
+<!-- RESULT-START -->
+First full run: [Actions run 40564969278](https://github.com/braxtonmensah/peptides-func-split-rerun/actions/runs/40564969278), 2026-10-27, all controls passed. Verdicts are computed by `src/aggregate.py` from the thresholds in PREREG.md.
+
+| model | contrast | score, contaminated side | score, clean side | difference (mean of 5) | sd | t (df 4) | same sign | verdict |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| **M1** count ECFP + LightGBM | **A** shipped vs corrected split | 0.7460 | 0.5687 | **+0.1773** | 0.0094 | 42.14 | 5 of 5 | **H1** |
+| M2 descriptor ridge | A shipped vs corrected split | 0.3542 | 0.3229 | +0.0312 | 0.0054 | 12.98 | 5 of 5 | H1 |
+| M1 | C twinned vs untwinned test rows, same training | 0.7966 | 0.5847 | +0.2119 | 0.0280 | 16.95 | 5 of 5 | H1 |
+| M2 | C twinned vs untwinned test rows, same training | 0.3775 | 0.3147 | +0.0629 | 0.0088 | 16.00 | 5 of 5 | H1 |
+
+Macro AP over 10 labels. Contrast A: the clean column is the mean over 5 rebuilt splits (seeds 0 to 4); the published corrected file scores 0.5695 (M1) and 0.3288 (M2), not gated. Contrast C: M1 is fit on train + val, so twins are counted against that (1,601 twinned, 730 untwinned); M2 is fit on train (1,522 and 809, the record's numbers); twinned rows are subsampled to the untwinned count, 5 seeds.
+
+Controls: shipped split twin rate 65.29% (1,522 rows), corrected file and all 5 resamples 0.00%; the scikit-fingerprints Hugging Face copy matches LRGB's files row for row; M1 on the shipped split scores 0.746043 against the paper's 74.60 (COMPARABLE); label-shuffled training gives 0.1656 (M1) and 0.1802 (M2) against a mean test positive rate of 0.1646 (M2 labels 6 and 9 deviate by more than 0.04: flagged, not gated); resample 0 run twice is identical to 6 decimals for both models.
+
+**Reading.** For the published fingerprint baseline, the shipped split scores 0.18 macro AP higher than splits where no test sequence has a training sequence at ratio 0.80 or above, and inside one test set the rows with a training twin score 0.21 higher than those without. Contrast A changes the test rows and contrast C changes only which rows are scored; both point the same way. Neither removes row difficulty (see Limits). This measures two models, not the LRGB leaderboard.
+<!-- RESULT-END -->
+
 
 ## Limits
 
