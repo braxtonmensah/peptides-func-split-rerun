@@ -1,0 +1,524 @@
+{
+ "name": "peptides-func-split-rerun",
+ "primary": "M1 (count ECFP + LightGBM, arXiv 2501.17901) contrast A: shipped minus corrected macro AP",
+ "per_resample": [
+  {
+   "resample": "r0",
+   "seed": 0,
+   "ap_shipped": 0.746043,
+   "ap_corrected": 0.559059,
+   "diff": 0.186984
+  },
+  {
+   "resample": "r1",
+   "seed": 1,
+   "ap_shipped": 0.746043,
+   "ap_corrected": 0.570756,
+   "diff": 0.175287
+  },
+  {
+   "resample": "r2",
+   "seed": 2,
+   "ap_shipped": 0.746043,
+   "ap_corrected": 0.583706,
+   "diff": 0.162337
+  },
+  {
+   "resample": "r3",
+   "seed": 3,
+   "ap_shipped": 0.746043,
+   "ap_corrected": 0.563442,
+   "diff": 0.182601
+  },
+  {
+   "resample": "r4",
+   "seed": 4,
+   "ap_shipped": 0.746043,
+   "ap_corrected": 0.566672,
+   "diff": 0.179371
+  }
+ ],
+ "mean": 0.568727,
+ "sd": 0.009409,
+ "diff": 0.177316,
+ "t": 42.14,
+ "verdict": "H1",
+ "ap_shipped": 0.746043,
+ "paper_comparability": "COMPARABLE",
+ "gate": {
+  "h1_min_diff": 0.03,
+  "h1_min_same_sign": 4,
+  "n_resamples": 5,
+  "h0_below": 0.01
+ },
+ "contrasts": {
+  "A_M1": {
+   "model": "M1",
+   "contrast": "A",
+   "ap_shipped": 0.746043,
+   "per_resample": [
+    {
+     "resample": "r0",
+     "seed": 0,
+     "ap_shipped": 0.746043,
+     "ap_corrected": 0.559059,
+     "diff": 0.186984
+    },
+    {
+     "resample": "r1",
+     "seed": 1,
+     "ap_shipped": 0.746043,
+     "ap_corrected": 0.570756,
+     "diff": 0.175287
+    },
+    {
+     "resample": "r2",
+     "seed": 2,
+     "ap_shipped": 0.746043,
+     "ap_corrected": 0.583706,
+     "diff": 0.162337
+    },
+    {
+     "resample": "r3",
+     "seed": 3,
+     "ap_shipped": 0.746043,
+     "ap_corrected": 0.563442,
+     "diff": 0.182601
+    },
+    {
+     "resample": "r4",
+     "seed": 4,
+     "ap_shipped": 0.746043,
+     "ap_corrected": 0.566672,
+     "diff": 0.179371
+    }
+   ],
+   "mean": 0.568727,
+   "sd": 0.009409,
+   "diff": 0.177316,
+   "sd_diff": 0.009409,
+   "t": 42.14,
+   "df": 4,
+   "same_sign": 5,
+   "verdict": "H1",
+   "published_corrected_file_ap_not_gated": 0.569453
+  },
+  "A_M2": {
+   "model": "M2",
+   "contrast": "A",
+   "ap_shipped": 0.35417,
+   "per_resample": [
+    {
+     "resample": "r0",
+     "seed": 0,
+     "ap_shipped": 0.35417,
+     "ap_corrected": 0.320363,
+     "diff": 0.033807
+    },
+    {
+     "resample": "r1",
+     "seed": 1,
+     "ap_shipped": 0.35417,
+     "ap_corrected": 0.326185,
+     "diff": 0.027985
+    },
+    {
+     "resample": "r2",
+     "seed": 2,
+     "ap_shipped": 0.35417,
+     "ap_corrected": 0.326788,
+     "diff": 0.027382
+    },
+    {
+     "resample": "r3",
+     "seed": 3,
+     "ap_shipped": 0.35417,
+     "ap_corrected": 0.326701,
+     "diff": 0.027469
+    },
+    {
+     "resample": "r4",
+     "seed": 4,
+     "ap_shipped": 0.35417,
+     "ap_corrected": 0.314585,
+     "diff": 0.039585
+    }
+   ],
+   "mean": 0.322924,
+   "sd": 0.005383,
+   "diff": 0.031246,
+   "sd_diff": 0.005383,
+   "t": 12.978,
+   "df": 4,
+   "same_sign": 5,
+   "verdict": "H1",
+   "published_corrected_file_ap_not_gated": 0.328777
+  },
+  "C_M1": {
+   "twin_reference": "train+val",
+   "n_twinned": 1601,
+   "n_untwinned": 730,
+   "labels_used": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "labels_dropped": [],
+   "ap_twinned_all_rows": 0.797243,
+   "ap_untwinned_all_rows": 0.584699,
+   "positive_rate_twinned": [
+    0.0956,
+    0.0381,
+    0.07,
+    0.0306,
+    0.6646,
+    0.1855,
+    0.1174,
+    0.2011,
+    0.0194,
+    0.2804
+   ],
+   "positive_rate_untwinned": [
+    0.0712,
+    0.0274,
+    0.0479,
+    0.1329,
+    0.5438,
+    0.2342,
+    0.0849,
+    0.1493,
+    0.011,
+    0.2205
+   ],
+   "model": "M1",
+   "contrast": "C",
+   "per_resample": [
+    {
+     "seed": 0,
+     "n_twinned_subset": 730,
+     "ap_twinned": 0.781861,
+     "ap_untwinned": 0.584699,
+     "diff": 0.197162
+    },
+    {
+     "seed": 1,
+     "n_twinned_subset": 730,
+     "ap_twinned": 0.754457,
+     "ap_untwinned": 0.584699,
+     "diff": 0.169758
+    },
+    {
+     "seed": 2,
+     "n_twinned_subset": 730,
+     "ap_twinned": 0.812322,
+     "ap_untwinned": 0.584699,
+     "diff": 0.227623
+    },
+    {
+     "seed": 3,
+     "n_twinned_subset": 730,
+     "ap_twinned": 0.813391,
+     "ap_untwinned": 0.584699,
+     "diff": 0.228692
+    },
+    {
+     "seed": 4,
+     "n_twinned_subset": 730,
+     "ap_twinned": 0.821205,
+     "ap_untwinned": 0.584699,
+     "diff": 0.236506
+    }
+   ],
+   "mean": 0.796647,
+   "sd": 0.027963,
+   "diff": 0.211948,
+   "sd_diff": 0.027963,
+   "t": 16.948,
+   "df": 4,
+   "same_sign": 5,
+   "verdict": "H1"
+  },
+  "C_M2": {
+   "twin_reference": "train",
+   "n_twinned": 1522,
+   "n_untwinned": 809,
+   "labels_used": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "labels_dropped": [],
+   "ap_twinned_all_rows": 0.373885,
+   "ap_untwinned_all_rows": 0.314658,
+   "positive_rate_twinned": [
+    0.0959,
+    0.0375,
+    0.0716,
+    0.0302,
+    0.6728,
+    0.1899,
+    0.113,
+    0.207,
+    0.0204,
+    0.2845
+   ],
+   "positive_rate_untwinned": [
+    0.0729,
+    0.0297,
+    0.047,
+    0.1236,
+    0.5402,
+    0.2213,
+    0.0964,
+    0.1434,
+    0.0099,
+    0.2188
+   ],
+   "model": "M2",
+   "contrast": "C",
+   "per_resample": [
+    {
+     "seed": 0,
+     "n_twinned_subset": 809,
+     "ap_twinned": 0.369178,
+     "ap_untwinned": 0.314658,
+     "diff": 0.05452
+    },
+    {
+     "seed": 1,
+     "n_twinned_subset": 809,
+     "ap_twinned": 0.387469,
+     "ap_untwinned": 0.314658,
+     "diff": 0.072811
+    },
+    {
+     "seed": 2,
+     "n_twinned_subset": 809,
+     "ap_twinned": 0.369565,
+     "ap_untwinned": 0.314658,
+     "diff": 0.054907
+    },
+    {
+     "seed": 3,
+     "n_twinned_subset": 809,
+     "ap_twinned": 0.375369,
+     "ap_untwinned": 0.314658,
+     "diff": 0.060711
+    },
+    {
+     "seed": 4,
+     "n_twinned_subset": 809,
+     "ap_twinned": 0.386007,
+     "ap_untwinned": 0.314658,
+     "diff": 0.071349
+    }
+   ],
+   "mean": 0.377518,
+   "sd": 0.008782,
+   "diff": 0.06286,
+   "sd_diff": 0.008782,
+   "t": 16.005,
+   "df": 4,
+   "same_sign": 5,
+   "verdict": "H1"
+  }
+ },
+ "controls": {
+  "data_and_leakage": {
+   "md5": {
+    "data": "701eb743e899f4d793f0e13c8fa5a1b4",
+    "split": "5a0114bdadc80b94fc7ae974f13ef061"
+   },
+   "skfp_crosscheck": {
+    "same_smiles_same_order": true,
+    "same_labels": true,
+    "same_split_indices": true,
+    "hf_rows": 15535
+   },
+   "shipped_sizes": {
+    "train": 10873,
+    "val": 2331,
+    "test": 2331
+   },
+   "corrected_file_sizes": {
+    "train": 10873,
+    "val": 2331,
+    "test": 2331
+   },
+   "corrected_file_md5": "b5751ec51e80fa7fb5aba12016de81fb",
+   "n_clusters": 6339,
+   "twin": {
+    "shipped": {
+     "sizes": {
+      "train": 10873,
+      "val": 2331,
+      "test": 2331
+     },
+     "twin_at_080_pct": 65.29,
+     "twinned_test_rows": 1522,
+     "twin_at_080_pct_vs_train_plus_val": 68.68,
+     "twinned_test_rows_vs_train_plus_val": 1601
+    },
+    "corrected_file": {
+     "sizes": {
+      "train": 10873,
+      "val": 2331,
+      "test": 2331
+     },
+     "twin_at_080_pct": 0.0,
+     "twinned_test_rows": 0,
+     "twin_at_080_pct_vs_train_plus_val": 0.0,
+     "twinned_test_rows_vs_train_plus_val": 0
+    },
+    "r0": {
+     "sizes": {
+      "train": 10873,
+      "val": 2331,
+      "test": 2331
+     },
+     "twin_at_080_pct": 0.0,
+     "twinned_test_rows": 0,
+     "twin_at_080_pct_vs_train_plus_val": 0.0,
+     "twinned_test_rows_vs_train_plus_val": 0
+    },
+    "r1": {
+     "sizes": {
+      "train": 10873,
+      "val": 2331,
+      "test": 2331
+     },
+     "twin_at_080_pct": 0.0,
+     "twinned_test_rows": 0,
+     "twin_at_080_pct_vs_train_plus_val": 0.0,
+     "twinned_test_rows_vs_train_plus_val": 0
+    },
+    "r2": {
+     "sizes": {
+      "train": 10873,
+      "val": 2331,
+      "test": 2331
+     },
+     "twin_at_080_pct": 0.0,
+     "twinned_test_rows": 0,
+     "twin_at_080_pct_vs_train_plus_val": 0.0,
+     "twinned_test_rows_vs_train_plus_val": 0
+    },
+    "r3": {
+     "sizes": {
+      "train": 10873,
+      "val": 2331,
+      "test": 2331
+     },
+     "twin_at_080_pct": 0.0,
+     "twinned_test_rows": 0,
+     "twin_at_080_pct_vs_train_plus_val": 0.0,
+     "twinned_test_rows_vs_train_plus_val": 0
+    },
+    "r4": {
+     "sizes": {
+      "train": 10873,
+      "val": 2331,
+      "test": 2331
+     },
+     "twin_at_080_pct": 0.0,
+     "twinned_test_rows": 0,
+     "twin_at_080_pct_vs_train_plus_val": 0.0,
+     "twinned_test_rows_vs_train_plus_val": 0
+    }
+   },
+   "record": {
+    "twin_at_080_pct": 65.29,
+    "test_rows": 2331,
+    "train_rows": 10873
+   }
+  },
+  "shuffle": {
+   "M1": {
+    "macro_ap": 0.165569,
+    "mean_positive_rate": 0.16465,
+    "abs_gap": 0.000919,
+    "tolerance": 0.02,
+    "pass": true,
+    "per_label_deviation": {
+     "0": -0.0099,
+     "1": -0.0056,
+     "2": 0.0024,
+     "3": 0.0046,
+     "4": 0.0022,
+     "5": 0.0038,
+     "6": 0.014,
+     "7": -0.0037,
+     "8": -0.0032,
+     "9": 0.0046
+    },
+    "labels_flagged_over_0.04": []
+   },
+   "M2": {
+    "macro_ap": 0.180201,
+    "mean_positive_rate": 0.16465,
+    "abs_gap": 0.015551,
+    "tolerance": 0.02,
+    "pass": true,
+    "per_label_deviation": {
+     "0": 0.0039,
+     "1": -0.0113,
+     "2": -0.0059,
+     "3": 0.0061,
+     "4": 0.0359,
+     "5": -0.0173,
+     "6": 0.2233,
+     "7": -0.0225,
+     "8": 0.0105,
+     "9": -0.0672
+    },
+    "labels_flagged_over_0.04": [
+     "6",
+     "9"
+    ]
+   }
+  },
+  "determinism": {
+   "M1": {
+    "macro_ap": 0.559059,
+    "macro_ap_second_run": 0.559059,
+    "identical_to_6dp": true
+   },
+   "M2": {
+    "macro_ap": 0.320363,
+    "macro_ap_second_run": 0.320363,
+    "identical_to_6dp": true
+   }
+  },
+  "paper_reproduction": {
+   "paper": "arXiv 2501.17901, Table 1, count ECFP, Peptides-func AP 74.60",
+   "paper_ap": 0.746,
+   "this_run_ap": 0.746043,
+   "tolerance": 0.01,
+   "status": "COMPARABLE"
+  }
+ },
+ "provenance": {
+  "prereg_commit": "e44f71ada6a45dbe8e757f52e62861e1967cdbb2",
+  "prereg_commit_unix": 1793126661,
+  "run_commit": "42855ad3704717bb273278745363685b5993302a",
+  "run_id": "40564969278",
+  "repository": "braxtonmensah/peptides-func-split-rerun",
+  "aggregated_utc": "2026-10-27T19:01:37Z"
+ },
+ "controls_failed": [],
+ "schema_valid": true
+}

@@ -40,9 +40,6 @@ The latest verdict is on the badge above and in
 [`results/summary.json`](https://github.com/braxtonmensah/peptides-func-split-rerun/blob/results/results/summary.json)
 on the `results` branch (job summary table in each run). Tagged releases attach the JSON.
 
-<!-- RESULT-START -->
-Pending the first full run.
-<!-- RESULT-END -->
 
 ## Limits
 
