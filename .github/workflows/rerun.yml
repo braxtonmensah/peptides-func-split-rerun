@@ -1,0 +1,126 @@
+name: rerun
+
+# Fork the repo, open Actions, choose "rerun", press "Run workflow". No secrets are used.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore: ["README.md", "signals/**"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rerun-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  PYTHONHASHSEED: "0"
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  prereg-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: python src/prereg_check.py
+
+  prepare:
+    needs: prereg-check
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: astral-sh/setup-uv@v6
+      - run: uv pip install --system -r requirements.txt --override overrides.txt
+      - name: data integrity, leakage control, five corrected resamples
+        run: python src/prepare.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: prepared
+          path: |
+            work/splits.json
+            out/controls_data.json
+          if-no-files-found: warn
+
+  arms:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        model: [M1, M2]
+        split: [shipped, r0, r1, r2, r3, r4, corrected_file]
+        mode: [normal]
+        include:
+          - { model: M1, split: shipped, mode: shuffle }
+          - { model: M2, split: shipped, mode: shuffle }
+          - { model: M1, split: r0, mode: determinism }
+          - { model: M2, split: r0, mode: determinism }
+    name: ${{ matrix.model }} ${{ matrix.split }} ${{ matrix.mode }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: astral-sh/setup-uv@v6
+      - run: uv pip install --system -r requirements.txt --override overrides.txt
+      - uses: actions/download-artifact@v4
+        with: { name: prepared, path: . }
+      - run: python src/run_arm.py --model ${{ matrix.model }} --split ${{ matrix.split }} --mode ${{ matrix.mode }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: arm-${{ matrix.model }}-${{ matrix.split }}-${{ matrix.mode }}
+          path: out/${{ matrix.model }}_${{ matrix.split }}_${{ matrix.mode }}.json
+
+  aggregate:
+    needs: arms
+    if: always() && needs.arms.result != 'cancelled'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy==2.4.1 jsonschema==4.23.0
+      - uses: actions/download-artifact@v4
+        with: { name: prepared, path: . }
+      - uses: actions/download-artifact@v4
+        with: { pattern: "arm-*", path: out, merge-multiple: true }
+      - run: python src/prereg_check.py
+      - name: contrasts, controls, verdicts, schema
+        run: python src/aggregate.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: results, path: results/ }
+
+  publish:
+    # Only the canonical repo writes its results branch; forks get the same numbers as an artifact.
+    needs: aggregate
+    if: github.repository == 'braxtonmensah/peptides-func-split-rerun' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/download-artifact@v4
+        with: { name: results, path: results }
+      - name: push results/ and the badge to the results branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp results/badge.json badge.json
+          git checkout -B results
+          git add -f results badge.json
+          git commit -m "results: run ${{ github.run_id }} on ${{ github.sha }}"
+          git push -f origin results

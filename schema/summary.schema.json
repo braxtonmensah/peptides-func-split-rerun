@@ -1,0 +1,23 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "peptides-func-split-rerun summary",
+ "type": "object",
+ "required": ["per_resample", "mean", "sd", "diff", "t", "verdict", "gate", "contrasts", "controls", "provenance"],
+ "properties": {
+  "per_resample": {
+   "type": "array", "minItems": 5, "maxItems": 5,
+   "items": {"type": "object", "required": ["resample", "seed", "ap_shipped", "ap_corrected", "diff"],
+             "properties": {"seed": {"type": "integer"}, "ap_shipped": {"type": "number"},
+                            "ap_corrected": {"type": "number"}, "diff": {"type": "number"}}}
+  },
+  "mean": {"type": "number"},
+  "sd": {"type": "number"},
+  "diff": {"type": "number"},
+  "t": {"type": "number"},
+  "verdict": {"enum": ["H1", "H0", "INCONCLUSIVE"]},
+  "gate": {"type": "object", "required": ["h1_min_diff", "h1_min_same_sign", "n_resamples", "h0_below"]},
+  "contrasts": {"type": "object", "required": ["A_M1", "A_M2", "C_M1", "C_M2"]},
+  "controls": {"type": "object"},
+  "provenance": {"type": "object"}
+ }
+}

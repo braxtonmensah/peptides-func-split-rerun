@@ -1,0 +1,2 @@
+# as in the paper's pyproject: numba is never installed
+numba; sys_platform == 'never'

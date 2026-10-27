@@ -1,0 +1,14 @@
+# Pinned to the uv.lock of arXiv 2501.17901's code (scikit-fingerprints/peptides_molecular_fingerprints_classification@a76d135)
+scikit-fingerprints==1.18.0
+lightgbm==4.6.0
+scikit-learn==1.8.0
+rdkit==2025.3.6
+numpy==2.4.1
+scipy==1.17.0
+pandas==2.3.3
+joblib==1.5.3
+huggingface-hub==0.36.0
+tqdm==4.67.2
+# added here
+rapidfuzz==3.13.0
+jsonschema==4.23.0

@@ -1,0 +1,9 @@
+{
+ "note": "Vendored unchanged from the Silicyte record. prereg-check verifies each sha256 locally and against the upstream file at the pinned commit.",
+ "files": [
+  {"name": "inflation_lrgb.py", "repo": "braxtonmensah/silicyte-design-loops", "commit": "8647e8cf95fcaeca2dc97f3cca29293d46162b99", "path": "thirdparty/inflation_lrgb.py", "sha256": "95a35a2e93d799d86c03be73f859ff369627fef6aa8812f2f30da911cc4fbfe5"},
+  {"name": "build_lrgb_split.py", "repo": "braxtonmensah/silicyte-design-loops", "commit": "3086116fc05c830dd23adb9e6003a557431ba0a0", "path": "thirdparty/build_lrgb_split.py", "sha256": "078d426d13ab3d5f6d6f134ea685e1c199627756e8441c26b4bd9428e5a6028e"},
+  {"name": "inflation_pepbench.py", "repo": "braxtonmensah/silicyte-design-loops", "commit": "019f90917f331f32f4a5c438683bab8fd8ada6f4", "path": "thirdparty/inflation_pepbench.py", "sha256": "34217a8cfa92dba398580e258ff8921f58fc36351aa4be89d34bd4b72cdfe073"},
+  {"name": "leakage-measurements.json", "repo": "braxtonmensah/silicyte-site", "commit": "a147b98abe6e06978d8fdf89b16845f1ca4f0b6f", "path": "data/leakage-measurements.json", "sha256": "3541b58ebe534298f8f78514b5cd7917cdbe8e8ee9f76fe1ebe16ca4dc896e5f"}
+ ]
+}

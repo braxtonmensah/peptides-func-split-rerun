@@ -1,0 +1,218 @@
+{
+  "$comment": "Machine-readable form of the measurements published at https://silicyte.com/benchmark-leakage.html . Published so that an automated reader can quote an exact figure with its method and its caveat attached, instead of re-deriving one from prose.",
+  "schema_version": "1.0",
+  "published": "2026-10-17",
+  "publisher": {
+    "name": "Silicyte",
+    "url": "https://silicyte.com/",
+    "note": "Computational only. Operates no laboratory and claims no experimental result."
+  },
+  "canonical_page": "https://silicyte.com/benchmark-leakage.html",
+  "evidence_repository": "https://github.com/braxtonmensah/silicyte-design-loops/tree/main/thirdparty",
+  "license": "CC-BY-4.0",
+
+  "measured_quantity": {
+    "name": "test-row contamination rate",
+    "definition": "The fraction of test rows that have at least one training sequence at a Levenshtein ratio of 0.80 or above. Reported alongside exact_overlap, the fraction of test rows sharing a primary sequence outright with a training row.",
+    "twin_threshold_levenshtein_ratio": 0.80,
+    "what_it_is_not": "A contamination rate is NOT a score inflation. Nothing was retrained for these numbers, so they do not say by how much any reported accuracy is overstated. Anyone quoting these as 'benchmark X is overstated by Y points' is quoting something that was not measured.",
+    "provenance": "Each script downloads the benchmark's own published split files and hashes them at runtime. For LRGB both MD5s match the values hard-coded in its own loader."
+  },
+
+  "headline_result": {
+    "claim": "The split method is not the variable. Corpus redundancy is.",
+    "evidence": "FLIP conservation and FLIP secondary_structure are built by the identical documented procedure. The sentence 'Randomly split sequences into train/test with 95/5% probability' appears verbatim in both of their own READMEs, both are flagged green, and they measure 0.00% and 65.38%. A random split is safe when the underlying corpus is not redundant and badly unsafe when it is, and there is no way to know which case applies without measuring.",
+    "implication": "'Cluster your splits' was never the whole rule."
+  },
+
+  "measurements": [
+    {
+      "id": 1,
+      "benchmark": "LRGB Peptides-func",
+      "split": "splits_random_stratified_peptide.pickle",
+      "venue": "NeurIPS 2022 Datasets and Benchmarks",
+      "homology_control_as_published": "None. Stratified random split.",
+      "exact_overlap_pct": 7.72,
+      "twin_at_080_pct": 65.29,
+      "test_rows": 2331,
+      "train_rows": 10873,
+      "notes": "Of the 180 exact sequence matches, only 30 are the identical molecule by SMILES."
+    },
+    {
+      "id": 2,
+      "benchmark": "AMPlify",
+      "split": "positive class",
+      "venue": "BMC Genomics 2022",
+      "homology_control_as_published": "Not documented in the repository",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 63.47,
+      "test_rows": 835,
+      "train_rows": 3338
+    },
+    {
+      "id": 12,
+      "benchmark": "AMPlify",
+      "split": "negative class",
+      "venue": "BMC Genomics 2022",
+      "homology_control_as_published": "Not documented in the repository",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 30.18,
+      "test_rows": 835,
+      "notes": "Non-AMP negatives, train_balanced to test_balanced, same download and run as id 2. Measured 2026-10-17 and shown on the homepage chart since then; added to this record on 2026-10-23 (see corrections_issued). Numbered 12 so that ids 1 to 11 keep their meaning."
+    },
+    {
+      "id": 3,
+      "benchmark": "PepBenchmark",
+      "split": "hybrid_split, the paper's documented default",
+      "venue": "ICLR 2026",
+      "homology_control_as_published": "k-mer split, then MMseqs2 at 30% sequence identity",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct_by_dataset": {
+        "antimicrobial_E_coli_mic": 29.97,
+        "hemolytic_hc50": 48.56
+      },
+      "random_split_comparison_pct": {
+        "antimicrobial_E_coli_mic": 66.54,
+        "hemolytic_hc50": 77.42
+      },
+      "aggregation": "mean over the five shipped seeds",
+      "notes": "The control removes between half and two thirds of the contamination and does not reach zero. Exact overlap is 0.00% on every dataset, strategy and seed, so its deduplication works exactly as described. PepBenchmark also publishes its own redundancy rates in Appendix D.1, 19% to 47% at 90% identity on the raw corpus; that is a different quantity from this one, which is what survives after their 30% control."
+    },
+    {
+      "id": 4,
+      "benchmark": "AMP Scanner v2",
+      "split": "positive class",
+      "venue": "Bioinformatics 2018",
+      "homology_control_as_published": "CD-HIT at 90% identity, pool filtered before splitting",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 16.71,
+      "test_rows": 712
+    },
+    {
+      "id": 5,
+      "benchmark": "AMP Scanner v2",
+      "split": "negative class",
+      "venue": "same paper, same tool, same run as id 4",
+      "homology_control_as_published": "CD-HIT at 40% identity, pool filtered before splitting",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 0.00,
+      "test_rows": 712,
+      "notes": "Load-bearing control. Same paper and same tool as id 4, differing only in threshold, and it returns exactly zero. A check that found contamination everywhere would be worthless."
+    },
+    {
+      "id": 6,
+      "benchmark": "FLIP meltome",
+      "split": "mixed",
+      "venue": "NeurIPS 2021, full-length proteins",
+      "homology_control_as_published": "MMseqs2 at 20% identity, whole clusters assigned 80/20",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 0.29,
+      "test_rows": 3134,
+      "train_rows": 24817,
+      "train_rows_unique": 20206
+    },
+    {
+      "id": 7,
+      "benchmark": "FLIP meltome",
+      "split": "human",
+      "venue": "same benchmark, human proteins only",
+      "homology_control_as_published": "MMseqs2 at 20% identity, whole clusters assigned 80/20",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 0.05
+    },
+    {
+      "id": 8,
+      "benchmark": "FLIP meltome",
+      "split": "human_cell",
+      "venue": "same benchmark, human cell lysate",
+      "homology_control_as_published": "MMseqs2 at 20% identity, whole clusters assigned 80/20",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 0.00
+    },
+    {
+      "id": 9,
+      "benchmark": "FLIP scl",
+      "split": "mixed_hard",
+      "venue": "same benchmark, different task: 10-class subcellular localisation",
+      "homology_control_as_published": "MMseqs2 at 20% identity, whole clusters assigned 80/20",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 0.00
+    },
+    {
+      "id": 10,
+      "benchmark": "FLIP conservation",
+      "split": "sampled",
+      "venue": "same benchmark",
+      "homology_control_as_published": "Random 95/5. No clustering.",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 0.00,
+      "notes": "Identical documented procedure to id 11 and 65 points apart. This pair is the headline result."
+    },
+    {
+      "id": 11,
+      "benchmark": "FLIP secondary_structure",
+      "split": "sampled",
+      "venue": "same benchmark, same random design",
+      "homology_control_as_published": "Random 95/5. No clustering.",
+      "exact_overlap_pct": 0.00,
+      "twin_at_080_pct": 65.38,
+      "notes": "Identical documented procedure to id 10 and 65 points apart. The difference is corpus redundancy: the PDB holds an enormous number of near-identical chains and the conservation sequences do not."
+    }
+  ],
+
+  "measured_but_deliberately_not_reported_as_findings": [
+    {
+      "benchmark": "FLIP bind",
+      "twin_at_080_pct": 98.33,
+      "why_excluded": "Its six splits test generalisation across ligand type, not across sequence similarity. The same protein recurring with a different ligand is the design of the benchmark rather than a defect in it. Reporting this as 'FLIP bind leaks 98%' would be wrong."
+    },
+    {
+      "benchmark": "LRGB Peptides-struct",
+      "twin_at_080_pct": 65.29,
+      "why_excluded": "Not a second data point. splits_random_stratified_peptide_structure.pickle is byte-identical to the Peptides-func split pickle, same MD5, and the index sets match. LRGB ships one split for both peptide tasks over the same 15,535 molecules and only the label differs. Counting it twice would be exactly the error this page is about. The honest framing is stronger anyway: one contaminated split underlies both leaderboards."
+    }
+  ],
+
+  "corrections_issued": [
+    {
+      "when": "2026-10-23 20:44 ET",
+      "what": "The homepage chart has shown 13 split measurements since 2026-10-17, but this record carried 11 entries and omitted AMPlify's negative class (30.18%, measured in the same run as its positive class). The row is added as id 12. No measured value changed. Counting PepBenchmark's two datasets separately, as the chart does, the record now yields the chart's 13 values."
+    },
+    {
+      "when": "2026-10-17 06:00 ET",
+      "what": "Published that FLIP was clean four splits out of four. Three further splits were then measured and one of them, secondary_structure sampled, returns 65.38%. The claim was retracted on the page and the correction posted to the FLIP repository on the same thread where the maintainers had been told their benchmark held up."
+    }
+  ],
+
+  "own_pipeline_defect_found_and_published": {
+    "what": "A cross-validation splitter documented as single-linkage clustering was performing greedy first-match assignment at a different threshold.",
+    "mic_rows_with_cross_fold_twin_pct": 20.1,
+    "hc50_rows_with_cross_fold_twin_pct": 24.6,
+    "family_overlap_check_result": "passed 826 of 826, while failing to measure the quantity it existed to bound",
+    "after_rebuild_pct": 0.0000,
+    "score_inflation_on_safety_endpoint": 0.065
+  },
+
+  "prior_art": [
+    {
+      "work": "PepBenchmark Appendix D.1",
+      "relation": "Publishes its own corpus redundancy rates, 19% to 47% at 90% identity on the raw corpus. A different quantity from this one, but the ranges overlap and the distinction is easy to miss."
+    },
+    {
+      "work": "Tonshoff et al., TMLR 2024",
+      "relation": "Already critiqued LRGB, on hyperparameters rather than on the data."
+    },
+    {
+      "work": "Mattsson and Walters, protein-ligand affinity",
+      "relation": "A stronger version of the argument: a ligand-only baseline with no protein information reaches r = 0.66. If that generalises, sequence identity is the wrong axis entirely and the result on this page is the weaker one."
+    }
+  ],
+
+  "issues_filed_on_the_benchmarks_own_repositories": [
+    "https://github.com/vijaydwivedi75/lrgb/issues/16",
+    "https://github.com/ZGCI-AI4S-Pep/PepBenchmark/issues/19",
+    "https://github.com/J-SNACKKB/FLIP/issues/29",
+    "https://github.com/pyg-team/pytorch_geometric/issues/10865",
+    "https://github.com/BirolLab/AMPlify/issues/21"
+  ]
+}
